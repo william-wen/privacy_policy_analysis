@@ -62,7 +62,6 @@ combine = [policies]
 
 # Preprocess All Data
 policies['Policy'] = policies['Policy'].apply(process_policy)
-print(policies)
 
 # Train Test Split
 X_train, X_test, y_train, y_test = train_test_split(policies['Policy'], policies['Score'], test_size = 0.1, random_state = 1)
