@@ -1,0 +1,19 @@
+#
+# Author: Lasse Collin
+#
+# This file has been put into the public domain.
+# You can do whatever you want with this file.
+#
+
+prefix=/Users/willwen/anaconda3/envs/privacy_policy_tool
+exec_prefix=/Users/willwen/anaconda3/envs/privacy_policy_tool
+libdir=/Users/willwen/anaconda3/envs/privacy_policy_tool/lib
+includedir=/Users/willwen/anaconda3/envs/privacy_policy_tool/include
+
+Name: liblzma
+Description: General purpose data compression library
+URL: https://tukaani.org/xz/
+Version: 5.2.4
+Cflags: -I${includedir}
+Libs: -L${libdir} -llzma
+Libs.private: -D_THREAD_SAFE -pthread 

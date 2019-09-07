@@ -1,0 +1,9 @@
+prefix=/Users/willwen/anaconda3/envs/privacy_policy_tool
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: OpenSSL
+Description: Secure Sockets Layer and cryptography libraries and tools
+Version: 1.1.1c
+Requires: libssl libcrypto
