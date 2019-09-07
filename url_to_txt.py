@@ -22,7 +22,7 @@ if not os.path.exists(ToS):
 os.chdir(ToS)
 
 # Set the URL you want to webscrape from
-company_urls = open('C:/Users/yuche/Documents/my-projects/ml/100company.txt', 'r', encoding='utf-8')
+company_urls = open('./privacy_pages.txt', 'r', encoding='utf-8')
 urls = company_urls.read().split('\n')
 
 for url in urls:
