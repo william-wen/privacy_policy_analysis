@@ -81,6 +81,7 @@ X_test = tfidf.transform(X_test)
 model = LinearRegression()
 model.fit(X_train, y_train)
 
+print(type(X_test))
 y_pred = model.predict(X_test)
 print(y_pred)
 print(y_test)
