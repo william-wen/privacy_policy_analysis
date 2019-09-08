@@ -31,7 +31,7 @@ for url in fl:
         if url_result == "":
             unable_to_parse += 1
 
-
 print("failed to scrape: ", unable_to_scrape)
+print("failed to parse: ", unable_to_parse)
 
 print('Url to Txt Complete')
