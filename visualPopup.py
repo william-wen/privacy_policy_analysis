@@ -10,6 +10,7 @@ from inscriptis import get_text
 from socket import timeout
 import http
 import textstat
+from loaded_model import predict_score
 
 
 regex = re.compile(
@@ -40,6 +41,11 @@ def display_scores(name: str, text: str) -> None:
     aSLContent = "Average Sentence Length is: {}.".format(avgSentenceLen)
     aSLLbl = Label(root, text=aSLContent, font=12, pady=10)
     aSLLbl.pack()
+
+    predictedScore = predict_score(text)
+    predictedScoreContent = "Regression Model Predicted Score is: {}.".format("{0:.2f}".format(predictedScore))
+    pSLbl = Label(root, text=predictedScoreContent, font=12, pady=10)
+    pSLbl.pack()
 
 def get_me():
     url = simpledialog.askstring("input website", "please enter a website")
