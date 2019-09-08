@@ -12,8 +12,11 @@ from inscriptis import get_text
 from socket import timeout
 
 def url_to_txt_file(url:str):
-
-    current_page = "{0.netloc}".format(urlsplit(url)).split('.')[1]
+    if ('www.' in url):
+        current_page = "{0.netloc}".format(urlsplit(url)).split('.')[1]
+    else:
+        current_page = "{0.netloc}".format(urlsplit(url)).split('.')[0]
+        
     if os.path.exists(current_page):
         shutil.rmtree(current_page)
 
