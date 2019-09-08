@@ -1,6 +1,6 @@
 .DS_Store
 __pycache__
-Privacy_Policies.*
+Privacy_Policies
 
 # specific files
 test.py

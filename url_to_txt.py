@@ -5,18 +5,19 @@ import time
 import os
 import re
 import shutil
+import http
 from bs4 import BeautifulSoup
 from lxml import html
 from urllib.parse import urlsplit
 from inscriptis import get_text
 from socket import timeout
 
-def url_to_txt_file(url:str):
+def url_to_txt_file(url:str) -> str:
     if ('www.' in url):
         current_page = "{0.netloc}".format(urlsplit(url)).split('.')[1]
     else:
         current_page = "{0.netloc}".format(urlsplit(url)).split('.')[0]
-        
+
     if os.path.exists(current_page):
         shutil.rmtree(current_page)
 
@@ -28,7 +29,9 @@ def url_to_txt_file(url:str):
                 f.write(text)
         else:
             print(current_page + ' is empty')
+        return "Ok"
 
-    except (urllib.error.HTTPError, urllib.error.URLError, timeout) as error:
+    except (urllib.error.HTTPError, urllib.error.URLError, timeout, http.client.HTTPException) as error:
         print(url + ": ", error)
+        return ""
 
