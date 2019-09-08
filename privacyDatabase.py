@@ -28,7 +28,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn import tree
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.externals import joblib
+import joblib
 
 import matplotlib.pyplot as plt
 
@@ -69,6 +69,7 @@ m = y_test.size
 tfidf = TfidfVectorizer()
 X_train = tfidf.fit_transform(X_train)
 X_test = tfidf.transform(X_test)
+# print(X_test)
 
 vectorizer_filename = 'vectorizer.sav'
 joblib.dump(tfidf, vectorizer_filename)

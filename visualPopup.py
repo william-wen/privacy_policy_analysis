@@ -42,7 +42,6 @@ def display_scores(name: str, text: str) -> None:
     fESLbl = Label(root, text=fESContent, font=12, pady=10)
     fESLbl.pack()
 
-
     flKinScore = textstat.flesch_kincaid_grade(text)
     fKSAll = fleschIndex.fleschkincaid()
     fKSAll.sort(reverse=True)
@@ -91,7 +90,7 @@ def get_me():
                 company_name = "{0.netloc}".format(urlsplit(s)).split('.')[0]
             try:
                 html = urllib.request.urlopen(s, timeout=5).read().decode('utf-8')
-                text = get_text(html)
+                text = re.sub('[^a-zA-Z\d\s:]', '', get_text(html))
                 display_scores(company_name, text)
             except (urllib.error.HTTPError, urllib.error.URLError, timeout, http.client.HTTPException) as error:
                 print(url + ": ", error)
@@ -106,5 +105,5 @@ one.pack()
 button = Button(root, text="enter a url", command=get_me)
 button.pack()
 
-root.geometry("500x500")
+root.geometry("500x800")
 root.mainloop()
