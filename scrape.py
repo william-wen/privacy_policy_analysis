@@ -15,6 +15,10 @@ def scrapeUrl(url: str) -> str:
         return ""
     except requests.exceptions.TooManyRedirects:
         return ""
+    except requests.exceptions.ConnectionError:
+        return ""
+    except requests.exceptions.ContentDecodingError:
+        return ""
 
     # Parse HTML and save to BeautifulSoup object¶
     soup = BeautifulSoup(response.text, "html.parser")
