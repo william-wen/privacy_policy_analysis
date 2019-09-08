@@ -34,15 +34,19 @@ def scrapeUrl(url: str) -> str:
     newurl = ""
     if len(pri_url) > 0:
         pri_url.sort(key=len)
-        suburl = url.split(".")[-1]
+        suburl = url.split(".")[-2]
         for i in range(len(pri_url)):
             if 'http' in pri_url[i]:
                 newurl = pri_url[i]
             else:
-                if pri_url[0] == '/':
-                    newurl = url[:-2] + pri_url[i][1:]
+                if url[-1] == '\n':
+                    url = url[:-1]
+                if url[-1] == '/':
+                    url = url[:-1]
+                if pri_url[i][0] == '/':
+                    newurl = url + pri_url[i]
                 else:
-                    newurl = url[:-1] + pri_url[i]
+                    newurl = url + '/' + pri_url[i]
             if suburl in newurl:
                 break
     return newurl
