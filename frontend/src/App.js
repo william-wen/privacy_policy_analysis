@@ -9,7 +9,7 @@ const { Search } = Input;
 
 class App extends Component {
   render(){
-
+    
     const columns = [
       {
         title: 'Rank',
@@ -103,10 +103,10 @@ class App extends Component {
                   <p className = "description">
                     The term "Privacy Paradox" describes the inconsistency between
                     our concerns about privacy and our seemingly apathetic behavior
-                    towards giving information away. Oftentimes, corporations encourage
+                    towards giving information away. Oftentimes, corporations encourage 
                     apathy with convoluted Privacy Policies that may hide content people
                     are likely to find concerning. The Privacy Policy Index (PPI) aims to
-                    provide a <span style={{fontWeight: 'bold', color:'orange'}}>convenient</span> and <span style={{fontWeight: 'bold', color: 'yellow'}}>accessible</span>
+                    provide a <span style={{fontWeight: 'bold', color:'orange'}}>convenient</span> and <span style={{fontWeight: 'bold', color: 'yellow'}}>accessible</span> 
                     {' '} starting point for looking into privacy policies. It uses Machine Learning <span style={{fontWeight: 'bold', color: 'lightGreen'}}>(Linear Regression)</span>
                     {' '} and several readability indexes to evaluate the strength of a company's
                     privacy policy and rank it against that of other companies.
@@ -117,7 +117,7 @@ class App extends Component {
 
             <section className = "stats-page" id = "stats">
               <h1 className='text-center'> Data Collected </h1>
-              <img src="Plot.png">
+              <img src='./media/Plot.png' alt='' />
             </section>
           </div>
         </main>

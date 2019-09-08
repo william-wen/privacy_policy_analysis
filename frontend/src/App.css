@@ -120,6 +120,10 @@ table {
 
 .stats-page {
   height: 95vh;
+  background: url('./media/Plot.png');
+  background-size: 50% auto;
+  background-repeat: no-repeat;
+  background-position: center;
   background-color: black;
 }
 
