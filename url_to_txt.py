@@ -14,16 +14,18 @@ from socket import timeout
 def url_to_txt_file(url:str):
 
     current_page = "{0.netloc}".format(urlsplit(url)).split('.')[1]
-    new_file = open(current_page + '.txt', 'w+')    
-
     if os.path.exists(current_page):
         shutil.rmtree(current_page)
 
     try:
-        html = urllib.request.urlopen(url, timeout=3).read().decode('utf-8')
+        html = urllib.request.urlopen(url, timeout=5).read().decode('utf-8')
         text = get_text(html)
-        with open (current_page + '.txt', 'w', encoding="utf-8") as f:
-            f.write(text)
+        if text != "":
+            with open (current_page + '.txt', 'w+', encoding="utf-8") as f:
+                f.write(text)
+        else:
+            print(current_page + ' is empty')
+
     except (urllib.error.HTTPError, urllib.error.URLError, timeout) as error:
-        print(error)
+        print(url + ": ", error)
 

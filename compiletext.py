@@ -11,12 +11,12 @@ f_privacy.seek(0, 0)
 ToS = 'Terms of Services'
 
 unable = 0
-for url in fl:
-    scraped = scrapeUrl(url)
-    if scraped == "":
-        unable += 1
-    else:
-        f_privacy.writelines(scraped+'\n')
+# for url in fl:
+#     scraped = scrapeUrl(url)
+#     if scraped == "":
+#         unable += 1
+#     else:
+#         f_privacy.writelines(scraped+'\n')
         
 print("failed to scrape: ", unable)
 
@@ -36,5 +36,3 @@ for url in fl:
         url_to_txt_file(scraped)
 
 print('Url to Txt Complete')
-    
-f.close()
