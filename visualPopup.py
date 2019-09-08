@@ -10,6 +10,8 @@ from inscriptis import get_text
 from socket import timeout
 import http
 import textstat
+import fleschIndex
+from loaded_model import predict_score
 
 
 regex = re.compile(
@@ -27,19 +29,51 @@ def somethingwentwrong():
 
 def display_scores(name: str, text: str) -> None:
     fleschEaseScore = textstat.flesch_reading_ease(text)
-    fESContent = "Flesch Reading Ease Score: {}.".format(fleschEaseScore)
+    fESAll = fleschIndex.fleschscore()
+    fESAll.sort()
+    print(fESAll)
+    percentile = 100
+    for i in range(len(fESAll)):
+        if fleschEaseScore < fESAll[i]:
+            percentile = int(100*(i/len(fESAll)))
+            break
+
+    fESContent = "Flesch Reading Ease Score: {},\n which is in the {}th percentile.".format(fleschEaseScore, percentile)
     fESLbl = Label(root, text=fESContent, font=12, pady=10)
     fESLbl.pack()
 
+
     flKinScore = textstat.flesch_kincaid_grade(text)
-    fKSContent = "Flesch-Kincaid Grade: {}.".format(flKinScore)
+    fKSAll = fleschIndex.fleschkincaid()
+    fKSAll.sort(reverse=True)
+    print(fKSAll)
+    percentile = 100
+    for i in range(len(fKSAll)):
+        if flKinScore > fKSAll[i]:
+            percentile = int(100 * (i / len(fKSAll)))
+            break
+
+    fKSContent = "Flesch-Kincaid Grade: {},\n which is in the {}th percentile.".format(flKinScore, percentile)
     fKSLbl = Label(root, text=fKSContent, font=12, pady=10)
     fKSLbl.pack()
 
     avgSentenceLen = int(len(text.split())/textstat.sentence_count(text))
-    aSLContent = "Average Sentence Length is: {}.".format(avgSentenceLen)
+    aSLAll = fleschIndex.avg_sentence_len()
+    aSLAll.sort(reverse=True)
+    print(aSLAll)
+    percentile = 100
+    for i in range(len(aSLAll)):
+        if avgSentenceLen > aSLAll[i]:
+            percentile = int(100 * (i / len(aSLAll)))
+            break
+    aSLContent = "Average Sentence Length is: {},\n which is in the {}th percentile.".format(avgSentenceLen, percentile)
     aSLLbl = Label(root, text=aSLContent, font=12, pady=10)
     aSLLbl.pack()
+
+    predictedScore = predict_score(text)
+    predictedScoreContent = "Regression Model Predicted Score is: {}.".format("{0:.2f}".format(predictedScore))
+    pSLbl = Label(root, text=predictedScoreContent, font=12, pady=10)
+    pSLbl.pack()
 
 def get_me():
     url = simpledialog.askstring("input website", "please enter a website")
