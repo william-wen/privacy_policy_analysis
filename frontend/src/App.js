@@ -104,11 +104,11 @@ class App extends Component {
                     The term "Privacy Paradox" describes the inconsistency between
                     our concerns about privacy and our seemingly apathetic behavior
                     towards giving information away. Oftentimes, corporations encourage 
-                    apathy with convoluted Privacy Policies that made hide content people
+                    apathy with convoluted Privacy Policies that may hide content people
                     are likely to find concerning. The Privacy Policy Index (PPI) aims to
                     provide a <span style={{fontWeight: 'bold', color:'orange'}}>convenient</span> and <span style={{fontWeight: 'bold', color: 'yellow'}}>accessible</span> 
-                    {' '} starting point for looking into privacy policies. It uses Machine Learning
-                    and several readability indexes to evaluate the strength of a company's
+                    {' '} starting point for looking into privacy policies. It uses Machine Learning <span style={{fontWeight: 'bold', color: 'lightGreen'}}>(Linear Regression)</span>
+                    {' '} and several readability indexes to evaluate the strength of a company's
                     privacy policy and rank it against that of other companies.
                   </p>
                 </div>
