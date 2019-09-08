@@ -34,8 +34,3 @@ def fleschkincaid() -> List:
     for text in policies['Policy']:
         score.append(textstat.flesch_kincaid_grade(text))
     return score
-
-
-print(fleschscore())
-print(avg_sentence_len())
-print(fleschkincaid())
