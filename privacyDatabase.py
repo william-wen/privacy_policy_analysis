@@ -28,6 +28,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn import tree
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.externals import joblib
 
 import matplotlib.pyplot as plt
 
@@ -82,8 +83,8 @@ model = LinearRegression()
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
-print(y_pred)
-print(y_test)
+# print(y_pred)
+# print(y_test)
 
 mse = np.sum((y_pred - y_test)**2)
 rmse = np.sqrt(mse/m)
@@ -91,8 +92,10 @@ rmse = np.sqrt(mse/m)
 
 
 # Test against Test Set 
-# X_test = tfidf.transform(X_test)
-# y_pred = svm.predict(X_test)
+y_pred = model.predict(X_test)
 # print(y_pred)
+
+filename = 'finalized_model.sav'
+joblib.dump(model, filename)
 # print(confusion_matrix(y_test, y_pred))
 
