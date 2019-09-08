@@ -82,11 +82,12 @@ model = LinearRegression()
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
+print(y_pred)
+print(y_test)
 
 mse = np.sum((y_pred - y_test)**2)
 rmse = np.sqrt(mse/m)
-print(y_pred)
-print(rmse)
+
 
 
 # Test against Test Set 
