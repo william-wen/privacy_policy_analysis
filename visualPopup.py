@@ -11,6 +11,7 @@ from socket import timeout
 import http
 import textstat
 import fleschIndex
+from loaded_model import predict_score
 
 
 regex = re.compile(
@@ -41,7 +42,6 @@ def display_scores(name: str, text: str) -> None:
     fESLbl = Label(root, text=fESContent, font=12, pady=10)
     fESLbl.pack()
 
-
     flKinScore = textstat.flesch_kincaid_grade(text)
     fKSAll = fleschIndex.fleschkincaid()
     fKSAll.sort(reverse=True)
@@ -69,6 +69,11 @@ def display_scores(name: str, text: str) -> None:
     aSLLbl = Label(root, text=aSLContent, font=12, pady=10)
     aSLLbl.pack()
 
+    predictedScore = predict_score(text)
+    predictedScoreContent = "Regression Model Predicted Score is: {}.".format("{0:.2f}".format(predictedScore))
+    pSLbl = Label(root, text=predictedScoreContent, font=12, pady=10)
+    pSLbl.pack()
+
 def get_me():
     url = simpledialog.askstring("input website", "please enter a website")
     if re.match(regex, url) is None:
@@ -85,7 +90,7 @@ def get_me():
                 company_name = "{0.netloc}".format(urlsplit(s)).split('.')[0]
             try:
                 html = urllib.request.urlopen(s, timeout=5).read().decode('utf-8')
-                text = get_text(html)
+                text = re.sub('[^a-zA-Z\d\s:]', '', get_text(html))
                 display_scores(company_name, text)
             except (urllib.error.HTTPError, urllib.error.URLError, timeout, http.client.HTTPException) as error:
                 print(url + ": ", error)
@@ -100,5 +105,5 @@ one.pack()
 button = Button(root, text="enter a url", command=get_me)
 button.pack()
 
-root.geometry("500x500")
+root.geometry("500x800")
 root.mainloop()

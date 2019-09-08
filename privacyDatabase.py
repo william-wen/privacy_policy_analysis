@@ -28,7 +28,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn import tree
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.externals import joblib
+import joblib
 
 import matplotlib.pyplot as plt
 
@@ -62,7 +62,6 @@ combine = [policies]
 
 # Preprocess All Data
 policies['Policy'] = policies['Policy'].apply(process_policy)
-
 # Train Test Split
 X_train, X_test, y_train, y_test = train_test_split(policies['Policy'], policies['Score'], test_size = 0.1, random_state = 1)
 m = y_test.size
@@ -70,6 +69,10 @@ m = y_test.size
 tfidf = TfidfVectorizer()
 X_train = tfidf.fit_transform(X_train)
 X_test = tfidf.transform(X_test)
+# print(X_test)
+
+vectorizer_filename = 'vectorizer.sav'
+joblib.dump(tfidf, vectorizer_filename)
 
 # Training SVM classifier
 # svm = svm.SVC(C=1000, gamma='auto')
@@ -82,6 +85,7 @@ X_test = tfidf.transform(X_test)
 model = LinearRegression()
 model.fit(X_train, y_train)
 
+print(type(X_test))
 y_pred = model.predict(X_test)
 # print(y_pred)
 # print(y_test)
