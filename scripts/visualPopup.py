@@ -90,7 +90,8 @@ def get_me():
                 company_name = "{0.netloc}".format(urlsplit(s)).split('.')[0]
             try:
                 html = urllib.request.urlopen(s, timeout=5).read().decode('utf-8')
-                text = re.sub('[^a-zA-Z\d\s:]', '', get_text(html))
+                text = re.sub('[^a-zA-Z\d\s.,:]', '', get_text(html))
+                print(text)
                 display_scores(company_name, text)
             except (urllib.error.HTTPError, urllib.error.URLError, timeout, http.client.HTTPException) as error:
                 print(url + ": ", error)

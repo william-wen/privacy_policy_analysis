@@ -13,7 +13,6 @@ from inscriptis import get_text
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 def predict_score(txt:str) -> int:
-    txt = re.sub('[^a-zA-Z\d\s:]', '', txt)
     filename = 'finalized_model.sav'
     vectorizer_name = 'vectorizer.sav'
 
