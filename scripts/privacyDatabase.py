@@ -21,7 +21,7 @@ from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 # Classification
-from sklearn import svm 
+from sklearn import svm
 # Regression
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
@@ -32,10 +32,12 @@ import joblib
 
 import matplotlib.pyplot as plt
 
+
 def strip_punctuation(s):
     return ''.join(c for c in s if c not in punctuation)
 
-def process_policy(policy, lower_case = True, stem = True, stop_words = True):
+
+def process_policy(policy, lower_case=True, stem=True, stop_words=True):
     # Get rid of newlines
     policy = policy.replace('\n', ' ').rstrip()
     # Get rid of puntuation
@@ -57,13 +59,15 @@ def process_policy(policy, lower_case = True, stem = True, stop_words = True):
         stemmed_policy = " ".join([stemmer.stem(word) for word in policy])
     return stemmed_policy
 
-policies = pd.read_excel('hello.xlsx')
+
+policies = pd.read_excel('./files/hello.xlsx')
 combine = [policies]
 
 # Preprocess All Data
 policies['Policy'] = policies['Policy'].apply(process_policy)
 # Train Test Split
-X_train, X_test, y_train, y_test = train_test_split(policies['Policy'], policies['Score'], test_size = 0.1, random_state = 1)
+X_train, X_test, y_train, y_test = train_test_split(policies['Policy'], policies['Score'], test_size=0.1,
+                                                    random_state=1)
 m = y_test.size
 # TF-IDF and Vectorization
 tfidf = TfidfVectorizer()
@@ -90,16 +94,13 @@ y_pred = model.predict(X_test)
 # print(y_pred)
 # print(y_test)
 
-mse = np.sum((y_pred - y_test)**2)
-rmse = np.sqrt(mse/m)
+mse = np.sum((y_pred - y_test) ** 2)
+rmse = np.sqrt(mse / m)
 
-
-
-# Test against Test Set 
+# Test against Test Set
 y_pred = model.predict(X_test)
 # print(y_pred)
 
 filename = 'finalized_model.sav'
 joblib.dump(model, filename)
 # print(confusion_matrix(y_test, y_pred))
-

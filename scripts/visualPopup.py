@@ -1,26 +1,27 @@
 from tkinter import *
 from tkinter import simpledialog
 from tkinter import messagebox
-import scrape
+from scripts import scrape
 import re
-import url_to_txt
+from scripts import url_to_txt
 import urllib
 from urllib.parse import urlsplit
 from inscriptis import get_text
 from socket import timeout
 import http
 import textstat
-import fleschIndex
-from loaded_model import predict_score
+from scripts import fleschIndex
+from scripts.loaded_model import predict_score
 
+from scripts import fleschIndex
 
 regex = re.compile(
-        r'^(?:http|ftp)s?://' # http:// or https://
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
-        r'localhost|' #localhost...
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
-        r'(?::\d+)?' # optional port
-        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+    r'^(?:http|ftp)s?://'  # http:// or https://
+    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
+    r'localhost|'  # localhost...
+    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+    r'(?::\d+)?'  # optional port
+    r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
 
 def somethingwentwrong():
@@ -28,6 +29,8 @@ def somethingwentwrong():
 
 
 def display_scores(name: str, text: str) -> None:
+    nameLabel = Label(root, text=name+": ", font=12, pady=10)
+    nameLabel.pack()
     fleschEaseScore = textstat.flesch_reading_ease(text)
     fESAll = fleschIndex.fleschscore()
     fESAll.sort()
@@ -35,7 +38,7 @@ def display_scores(name: str, text: str) -> None:
     percentile = 100
     for i in range(len(fESAll)):
         if fleschEaseScore < fESAll[i]:
-            percentile = int(100*(i/len(fESAll)))
+            percentile = int(100 * (i / len(fESAll)))
             break
 
     fESContent = "Flesch Reading Ease Score: {},\n which is in the {}th percentile.".format(fleschEaseScore, percentile)
@@ -56,7 +59,7 @@ def display_scores(name: str, text: str) -> None:
     fKSLbl = Label(root, text=fKSContent, font=12, pady=10)
     fKSLbl.pack()
 
-    avgSentenceLen = int(len(text.split())/textstat.sentence_count(text))
+    avgSentenceLen = int(len(text.split()) / textstat.sentence_count(text))
     aSLAll = fleschIndex.avg_sentence_len()
     aSLAll.sort(reverse=True)
     print(aSLAll)
@@ -70,9 +73,10 @@ def display_scores(name: str, text: str) -> None:
     aSLLbl.pack()
 
     predictedScore = predict_score(text)
-    predictedScoreContent = "Regression Model Predicted Score is: {}.".format("{0:.2f}".format(predictedScore))
-    pSLbl = Label(root, text=predictedScoreContent, font=12, pady=10)
+    predictedScoreContent = "Regression Model Predicted Score is: {}/5.".format("{0:.2f}".format(predictedScore))
+    pSLbl = Label(root, text=predictedScoreContent, font=15, pady=15, fg="blue")
     pSLbl.pack()
+
 
 def get_me():
     url = simpledialog.askstring("input website", "please enter a website")
@@ -101,7 +105,7 @@ def get_me():
 
 root = Tk()
 
-one = Label(root, text="Check Your Company's Privacy Policy Index", font=15, pady=10)
+one = Label(root, text="Check Your Company's Privacy Policy Index", font=17, pady=10)
 one.pack()
 button = Button(root, text="enter a url", command=get_me)
 button.pack()

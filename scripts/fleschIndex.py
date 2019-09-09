@@ -5,7 +5,7 @@ import pandas as pd
 import textstat
 from typing import List
 
-policies = pd.read_excel('hello.xlsx')
+policies = pd.read_excel('./files/hello.xlsx')
 
 
 def fleschscore() -> List:
